@@ -1,17 +1,16 @@
 package com.shoppingcart.cart.controller;
 
+import static org.springframework.http.HttpStatus.*;
+
 import com.shoppingcart.cart.exception.AlreadyExistsException;
 import com.shoppingcart.cart.exception.ResourceNotFoundException;
 import com.shoppingcart.cart.model.Category;
 import com.shoppingcart.cart.response.ApiResponse;
 import com.shoppingcart.cart.service.category.ICategoryService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequiredArgsConstructor

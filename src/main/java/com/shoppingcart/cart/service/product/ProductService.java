@@ -1,12 +1,14 @@
 package com.shoppingcart.cart.service.product;
 
 import com.shoppingcart.cart.exception.ProductNotFoundException;
+import com.shoppingcart.cart.exception.ResourceNotFoundException;
 import com.shoppingcart.cart.model.Category;
 import com.shoppingcart.cart.model.Product;
 import com.shoppingcart.cart.repository.CategoryRepository;
 import com.shoppingcart.cart.repository.ProductRepository;
 import com.shoppingcart.cart.request.AddProductRequest;
 import com.shoppingcart.cart.request.UpdateProductRequest;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -53,8 +55,13 @@ public class ProductService implements IProductService {
 
     @Override
     public void deleteProductById(Long id) {
-        productRepository.findById(id)
-                .ifPresentOrElse(productRepository::delete, () -> {throw new ProductNotFoundException("Product Not Found!");});
+    productRepository
+        .findById(id)
+        .ifPresentOrElse(
+            productRepository::delete,
+            () -> {
+              throw new ResourceNotFoundException("Product Not Found!");
+            });
     }
 
     @Override
@@ -101,7 +108,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getProductByName(String name) {
+    public List<Product> getProductsByName(String name) {
         return productRepository.findByName(name);
     }
 
@@ -112,6 +119,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Long countProductsByBrandAndName(String brand, String name) {
-        return 0L;
+        return productRepository.countByBrandAndName(brand, name);
+
     }
 }
