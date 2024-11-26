@@ -5,7 +5,7 @@ import com.shoppingcart.cart.exception.ResourceNotFoundException;
 import com.shoppingcart.cart.model.Image;
 import com.shoppingcart.cart.response.ApiResponse;
 import com.shoppingcart.cart.service.image.IImageService;
-import jakarta.annotation.Resource;
+import org.springframework.core.io.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
