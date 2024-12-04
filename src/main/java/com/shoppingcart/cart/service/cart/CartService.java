@@ -6,7 +6,7 @@ import com.shoppingcart.cart.model.CartItem;
 import com.shoppingcart.cart.repository.CartItemRepository;
 import com.shoppingcart.cart.repository.CartRepository;
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,10 @@ public class CartService implements ICartService {
 
   private final CartRepository cartRepository;
   private final CartItemRepository cartItemRepository;
+  private final AtomicLong cartIdGenerator = new AtomicLong(0);
+
+
+
   @Override
   public Cart getCart(Long id) {
     return cartRepository
@@ -37,5 +41,14 @@ public class CartService implements ICartService {
     Cart cart = getCart(id);
     //stream reduce, first initial value and then the method used to reduced to a single value
     return cart.getItems().stream().map(CartItem :: getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+  }
+
+
+  @Override
+  public long initializeNewCart() {
+    Cart newCart = new Cart();
+    Long newCartId = cartIdGenerator.incrementAndGet();
+    newCart.setId(newCartId);
+    return cartRepository.save(newCart).getId();
   }
 }

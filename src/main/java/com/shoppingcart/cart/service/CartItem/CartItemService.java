@@ -29,7 +29,10 @@ public class CartItemService implements ICartItemService {
         Cart cart = cartService.getCart(cartId);
         Product product = productService.getProductById(productId);
         // check if item in cart
-        CartItem cartItem = getCartItem(cartId, productId);
+        CartItem cartItem = cart.getItems().stream().filter(item -> item.getProduct()
+                .getId()
+                .equals(product.getId()))
+                .findFirst().orElse(new CartItem());
         // if item not in cart
         if (cartItem.getId() == null) {
             cartItem.setProduct(product);
@@ -75,6 +78,6 @@ public class CartItemService implements ICartItemService {
         return cart.getItems().stream().filter(item -> item.getProduct()
                 .getId().equals(productId))
                 .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Cannot get, product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("CartItem not found"));
     }
 }
