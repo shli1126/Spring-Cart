@@ -1,4 +1,4 @@
-package com.shoppingcart.cart.service.CartItem;
+package com.shoppingcart.cart.service.cartItem;
 
 public interface ICartItemService {
 

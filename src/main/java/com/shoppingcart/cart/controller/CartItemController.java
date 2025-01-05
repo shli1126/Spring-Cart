@@ -3,9 +3,8 @@ package com.shoppingcart.cart.controller;
 
 import com.shoppingcart.cart.exception.ResourceNotFoundException;
 import com.shoppingcart.cart.response.ApiResponse;
-import com.shoppingcart.cart.service.CartItem.ICartItemService;
+import com.shoppingcart.cart.service.cartItem.ICartItemService;
 import com.shoppingcart.cart.service.cart.ICartService;
-import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
